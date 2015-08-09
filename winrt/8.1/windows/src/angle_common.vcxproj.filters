@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="common">
@@ -117,6 +117,11 @@
     <ClInclude Include="..\..\..\..\src\common\version.h">
       <Filter>common</Filter>
     </ClInclude>
-    <None Include="..\..\..\..\src\angle.gyp"/>
+    <None Include="..\..\..\..\src\angle.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\common\mathutil_ex.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

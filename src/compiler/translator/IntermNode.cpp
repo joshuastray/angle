@@ -21,6 +21,11 @@
 #include "compiler/translator/IntermNode.h"
 #include "compiler/translator/SymbolTable.h"
 
+//vs2012的c++11标准库并不完整，自行添加几个缺失的数学函数实现
+#if(_MSC_VER == 1700)
+#include "common/mathutil_ex.h"
+#endif
+
 namespace
 {
 
