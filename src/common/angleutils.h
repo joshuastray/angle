@@ -26,11 +26,11 @@ namespace angle
 class NonCopyable
 {
   public:
-    NonCopyable() = default;
-    ~NonCopyable() = default;
+      NonCopyable() {};
+      virtual ~NonCopyable(){};
   protected:
-    NonCopyable(const NonCopyable&) = delete;
-    void operator=(const NonCopyable&) = delete;
+    NonCopyable(const NonCopyable&);
+    void operator=(const NonCopyable&);
 };
 
 }

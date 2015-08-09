@@ -187,11 +187,13 @@ struct TConstParameter
     {
     }
 
+private:
     // Both constructor arguments must be const.
-    TConstParameter(TString *n, TType *t) = delete;
-    TConstParameter(const TString *n, TType *t) = delete;
-    TConstParameter(TString *n, const TType *t) = delete;
+    TConstParameter(TString *n, TType *t);
+    TConstParameter(const TString *n, TType *t);
+    TConstParameter(TString *n, const TType *t);
 
+public:
     const TString *name;
     const TType *type;
 };
