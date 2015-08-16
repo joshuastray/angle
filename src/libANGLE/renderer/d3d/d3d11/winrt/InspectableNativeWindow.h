@@ -34,10 +34,19 @@ class InspectableNativeWindow
         mSwapChainSizeSpecified(false),
         mSwapChainScaleSpecified(false),
         mSwapChainScale(1.0f),
-        mClientRectChanged(false),
-        mClientRect({0,0,0,0}),
-        mNewClientRect({0,0,0,0})
+        mClientRectChanged(false)
+        //mClientRect({0,0,0,0}),
+        //mNewClientRect({0,0,0,0})
     {
+        mClientRect.left = 0;
+        mClientRect.top = 0;
+        mClientRect.right = 0;
+        mClientRect.bottom = 0;
+        mNewClientRect.left = 0;
+        mNewClientRect.top = 0;
+        mNewClientRect.right = 0;
+        mNewClientRect.bottom = 0;
+
         mSizeChangedEventToken.value = 0;
     }
     virtual ~InspectableNativeWindow(){}
@@ -69,7 +78,11 @@ class InspectableNativeWindow
             if (!mSwapChainSizeSpecified)
             {
                 // We don't have to check if a swapchain scale was specified here; the default value is 1.0f which will have no effect.
-                mNewClientRect = { 0, 0, static_cast<long>(newWindowSize.cx * mSwapChainScale), static_cast<long>(newWindowSize.cy * mSwapChainScale) };
+                //mNewClientRect = { 0, 0, static_cast<long>(newWindowSize.cx * mSwapChainScale), static_cast<long>(newWindowSize.cy * mSwapChainScale) };
+                mNewClientRect.left = 0;
+                mNewClientRect.top = 0;
+                mNewClientRect.right = static_cast<long>(newWindowSize.cx * mSwapChainScale);
+                mNewClientRect.bottom = static_cast<long>(newWindowSize.cy * mSwapChainScale);
                 mClientRectChanged = true;
 
                 // If a scale was specified, then now is the time to apply the scale matrix for the new swapchain size and window size

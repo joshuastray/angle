@@ -203,7 +203,7 @@ bool IsEGLConfiguredPropertySet(EGLNativeWindowType window, ABI::Windows::Founda
 // Anything else will be rejected as an invalid IInspectable.
 bool IsValidEGLNativeWindowType(EGLNativeWindowType window)
 {
-    return IsCoreWindow(window) || IsSwapChainPanel(window) || IsEGLConfiguredPropertySet(window);
+    return IsCoreWindow(window) /*|| IsSwapChainPanel(window)*/ || IsEGLConfiguredPropertySet(window);
 }
 
 // Retrieve an optional property from a property set
@@ -263,7 +263,9 @@ HRESULT GetOptionalSizePropertyValue(const ComPtr<ABI::Windows::Foundation::Coll
 
     // Assume that the value does not exist
     *valueExists = false;
-    *value = { 0, 0 };
+    //*value = { 0, 0 };
+    (*value).cx = 0;
+    (*value).cy = 0;
 
     HRESULT result = GetOptionalPropertyValue(propertyMap, propertyName, &hasKey, propertyValue);
     if (SUCCEEDED(result) && hasKey)
@@ -276,7 +278,9 @@ HRESULT GetOptionalSizePropertyValue(const ComPtr<ABI::Windows::Foundation::Coll
             if (SUCCEEDED(propertyValue->GetSize(&sizeValue)) && (sizeValue.Width > 0 && sizeValue.Height > 0))
             {
                 // A valid property value exists
-                *value = { static_cast<long>(sizeValue.Width), static_cast<long>(sizeValue.Height) };
+                //*value = { static_cast<long>(sizeValue.Width), static_cast<long>(sizeValue.Height) };
+                (*value).cy = static_cast<long>(sizeValue.Width);
+                (*value).cy = static_cast<long>(sizeValue.Height);
                 *valueExists = true;
                 result = S_OK;
             }
