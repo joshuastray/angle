@@ -7,7 +7,7 @@
 // InspectableNativeWindow.cpp: NativeWindow base class for managing IInspectable native window types.
 
 #include "libANGLE/renderer/d3d/d3d11/winrt/CoreWindowNativeWindow.h"
-#include "libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.h"
+//#include "libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.h"
 
 namespace rx
 {
@@ -34,7 +34,7 @@ bool NativeWindow::initialize()
     }
 
     ComPtr<ABI::Windows::UI::Core::ICoreWindow> coreWindow;
-    ComPtr<ABI::Windows::UI::Xaml::Controls::ISwapChainPanel> swapChainPanel;
+    //ComPtr<ABI::Windows::UI::Xaml::Controls::ISwapChainPanel> swapChainPanel;
     if (IsCoreWindow(mWindow, &coreWindow))
     {
         mImpl = std::make_shared<CoreWindowNativeWindow>();
@@ -43,14 +43,14 @@ bool NativeWindow::initialize()
             return mImpl->initialize(mWindow, propertySet.Get());
         }
     }
-    else if (IsSwapChainPanel(mWindow, &swapChainPanel))
-    {
-        mImpl = std::make_shared<SwapChainPanelNativeWindow>();
-        if (mImpl)
-        {
-            return mImpl->initialize(mWindow, propertySet.Get());
-        }
-    }
+    //else if (IsSwapChainPanel(mWindow, &swapChainPanel))
+    //{
+    //    mImpl = std::make_shared<SwapChainPanelNativeWindow>();
+    //    if (mImpl)
+    //    {
+    //        return mImpl->initialize(mWindow, propertySet.Get());
+    //    }
+    //}
     else
     {
         ERR("Invalid IInspectable EGLNativeWindowType detected. Valid IInspectables include ICoreWindow, ISwapChainPanel and IPropertySet");
@@ -110,26 +110,26 @@ bool IsCoreWindow(EGLNativeWindowType window, ComPtr<ABI::Windows::UI::Core::ICo
     return false;
 }
 
-bool IsSwapChainPanel(EGLNativeWindowType window, ComPtr<ABI::Windows::UI::Xaml::Controls::ISwapChainPanel> *swapChainPanel)
-{
-    if (!window)
-    {
-        return false;
-    }
-
-    ComPtr<IInspectable> win = window;
-    ComPtr<ABI::Windows::UI::Xaml::Controls::ISwapChainPanel> panel;
-    if (SUCCEEDED(win.As(&panel)))
-    {
-        if (swapChainPanel != nullptr)
-        {
-            *swapChainPanel = panel.Detach();
-        }
-        return true;
-    }
-
-    return false;
-}
+//bool IsSwapChainPanel(EGLNativeWindowType window, ComPtr<ABI::Windows::UI::Xaml::Controls::ISwapChainPanel> *swapChainPanel)
+//{
+//    if (!window)
+//    {
+//        return false;
+//    }
+//
+//    ComPtr<IInspectable> win = window;
+//    ComPtr<ABI::Windows::UI::Xaml::Controls::ISwapChainPanel> panel;
+//    if (SUCCEEDED(win.As(&panel)))
+//    {
+//        if (swapChainPanel != nullptr)
+//        {
+//            *swapChainPanel = panel.Detach();
+//        }
+//        return true;
+//    }
+//
+//    return false;
+//}
 
 bool IsEGLConfiguredPropertySet(EGLNativeWindowType window, ABI::Windows::Foundation::Collections::IPropertySet **propertySet, IInspectable **eglNativeWindow)
 {
