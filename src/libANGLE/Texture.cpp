@@ -307,8 +307,9 @@ void Texture::setImageDescChain(size_t levels, Extents baseSize, GLenum sizedInt
 }
 
 Texture::ImageDesc::ImageDesc()
-    : ImageDesc(Extents(0, 0, 0), GL_NONE)
 {
+    size = Extents(0, 0, 0);
+    internalFormat = GL_NONE;
 }
 
 Texture::ImageDesc::ImageDesc(const Extents &size, GLenum internalFormat)

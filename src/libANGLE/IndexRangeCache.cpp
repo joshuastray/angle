@@ -70,8 +70,10 @@ void IndexRangeCache::clear()
 }
 
 IndexRangeCache::IndexRange::IndexRange()
-    : IndexRangeCache::IndexRange(GL_NONE, 0, 0)
 {
+    type = GL_NONE;
+    offset = 0;
+    count = 0;
 }
 
 IndexRangeCache::IndexRange::IndexRange(GLenum typ, intptr_t off, GLsizei c)
