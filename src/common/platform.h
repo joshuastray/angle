@@ -66,15 +66,22 @@
 #   endif
 
 #   if defined(ANGLE_ENABLE_WINDOWS_STORE)
-#       include <dxgi1_3.h>
+#       if(_MSC_VER > 1700)
+#           include <dxgi1_3.h>
+#       endif //(_MSC_VER > 1700)
 #       if defined(_DEBUG)
+#           if(_MSC_VER > 1700)
 #           include <DXProgrammableCapture.h>
+#           endif//(_MSC_VER > 1700)
 #           include <dxgidebug.h>
 #       endif
 #   endif
 
+#if(_MSC_VER > 1700)
 #   undef near
 #   undef far
+#endif //(_MSC_VER > 1700)
+
 #endif
 
 #if !defined(_M_ARM) && !defined(ANGLE_PLATFORM_ANDROID)
