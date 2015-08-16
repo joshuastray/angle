@@ -11,6 +11,11 @@ float roundf(float x)
     return boost::math::round(x);
 }
 
+long lround(float x)
+{
+    return boost::math::lround(x);
+}
+
 float asinhf(float x)
 {
     return boost::math::asinh(x);

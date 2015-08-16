@@ -10,6 +10,10 @@
 
 #include <windows.graphics.display.h>
 
+#if(_MSC_VER == 1700)
+#include "mathutil_ex.h"
+#endif
+
 using namespace ABI::Windows::Foundation::Collections;
 
 namespace rx
@@ -84,16 +88,24 @@ bool CoreWindowNativeWindow::initialize(EGLNativeWindowType window, IPropertySet
         // the scaling mode setting DXGI_SCALING_STRETCH on the swapchain.
         if (mSwapChainSizeSpecified)
         {
-            mClientRect = { 0, 0, swapChainSize.cx, swapChainSize.cy };
+            //mClientRect = { 0, 0, swapChainSize.cx, swapChainSize.cy };
+            mClientRect.left = 0;
+            mClientRect.top = 0;
+            mClientRect.right = swapChainSize.cx;
+            mClientRect.bottom = swapChainSize.cy;
         }
         else
         {
             SIZE coreWindowSize;
-            result = GetCoreWindowSizeInPixels(mCoreWindow, &coreWindowSize);
+            result = rx::GetCoreWindowSizeInPixels(mCoreWindow, &coreWindowSize);
 
             if (SUCCEEDED(result))
             {
-                mClientRect = { 0, 0, static_cast<long>(coreWindowSize.cx * mSwapChainScale), static_cast<long>(coreWindowSize.cy * mSwapChainScale) };
+                //mClientRect = { 0, 0, static_cast<long>(coreWindowSize.cx * mSwapChainScale), static_cast<long>(coreWindowSize.cy * mSwapChainScale) };
+                mClientRect.left = 0;
+                mClientRect.top = 0;
+                mClientRect.right = static_cast<long>(coreWindowSize.cx * mSwapChainScale);
+                mClientRect.bottom = static_cast<long>(coreWindowSize.cy * mSwapChainScale);
             }
         }
     }
@@ -199,7 +211,9 @@ HRESULT GetCoreWindowSizeInPixels(const ComPtr<ABI::Windows::UI::Core::ICoreWind
     HRESULT result = coreWindow->get_Bounds(&bounds);
     if (SUCCEEDED(result))
     {
-        *windowSize = { ConvertDipsToPixels(bounds.Width), ConvertDipsToPixels(bounds.Height) };
+        //*windowSize = { ConvertDipsToPixels(bounds.Width), ConvertDipsToPixels(bounds.Height) };
+        (*windowSize).cx = ConvertDipsToPixels(bounds.Width);
+        (*windowSize).cy = ConvertDipsToPixels(bounds.Height);
     }
 
     return result;
