@@ -118,6 +118,9 @@
       <Filter>common</Filter>
     </ClInclude>
     <None Include="..\..\..\..\src\angle.gyp" />
+    <ClCompile Include="..\..\..\..\src\common\mathutil_ex.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\common\mathutil_ex.h">
