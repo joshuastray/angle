@@ -39,7 +39,7 @@ void Trim11::trim()
         return;
     }
 
-#if defined (ANGLE_ENABLE_WINDOWS_STORE)
+#if defined (ANGLE_ENABLE_WINDOWS_STORE) && (_MSC_VER > 1700)
     ID3D11Device* device = mRenderer->getDevice();
     // IDXGIDevice3 is only supported on Windows 8.1 and Windows Phone 8.1 and above.
     IDXGIDevice3 *dxgiDevice3 = d3d11::DynamicCastComObject<IDXGIDevice3>(device);

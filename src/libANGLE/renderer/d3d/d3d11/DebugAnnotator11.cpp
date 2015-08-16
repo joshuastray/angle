@@ -67,6 +67,7 @@ bool DebugAnnotator11::getStatus()
     // If an app links against DXGIGetDebugInterface1 in release mode then it will fail Windows Store ingestion checks.
 
     // Cache the result to reduce the number of calls to DXGIGetDebugInterface1
+#if (_MSC_VER > 1700)
     static bool triedIDXGraphicsAnalysis = false;
 
     if (!triedIDXGraphicsAnalysis)
@@ -82,6 +83,7 @@ bool DebugAnnotator11::getStatus()
         SafeRelease(graphicsAnalysis);
         triedIDXGraphicsAnalysis = true;
     }
+#endif // 0
 #endif // _DEBUG && !ANGLE_ENABLE_WINDOWS_STORE
 
     return underCapture;
